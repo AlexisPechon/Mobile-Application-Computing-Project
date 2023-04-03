@@ -12,17 +12,27 @@ public class PageViewModel extends ViewModel {
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override
         public String apply(Integer input) {
+            APIConnections myConn = new APIConnections();
 
             if(input == 1){
 
                 //return "Hello World from section: " + input;
-                return "-> Update: 15/02/2023" +
-                        "\nWelcome to the homepage of the mobile application!" +
-                        "\nThis is where you can find the latest news and updates " +
-                        "\nall related to the development of this mobile application." +
-                        "\nStay in tune for further updates made to this application!" +
-                        "\nWe are currently working hard to deliver you the complete and" +
-                        "\nseamless user experience.";
+                //return myConn.sendGalwayBus();
+
+                try{
+                    myConn.sendGalwayBus();
+
+                }catch(Exception e){
+                    System.out.println("A problem has occurred: " + e);
+                }
+                //return "-> Update: 15/02/2023" +
+                        //"\nWelcome to the homepage of the mobile application!" +
+                        //"\nThis is where you can find the latest news and updates " +
+                        //"\nall related to the development of this mobile application." +
+                        //"\nStay in tune for further updates made to this application!" +
+                        //"\nWe are currently working hard to deliver you the complete and" +
+                        //"\nseamless user experience.";
+
             }
             else if (input == 2){
                 //return "Hello World from section: " + input;
