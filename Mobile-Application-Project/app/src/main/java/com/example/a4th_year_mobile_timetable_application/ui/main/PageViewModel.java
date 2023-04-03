@@ -20,7 +20,8 @@ public class PageViewModel extends ViewModel {
                 //return myConn.sendGalwayBus();
 
                 try{
-                    myConn.sendGalwayBus();
+                    String response = myConn.sendGalwayBus();
+                    return response;
 
                 }catch(Exception e){
                     System.out.println("A problem has occurred: " + e);

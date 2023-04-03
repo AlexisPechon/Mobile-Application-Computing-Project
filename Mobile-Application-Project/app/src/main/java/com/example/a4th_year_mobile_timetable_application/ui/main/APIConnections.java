@@ -13,7 +13,7 @@ public class APIConnections {
     private final String GET_IRISH_TRAIN_URL = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML";
 
     //Methods
-    public void sendGalwayBus() throws IOException{ //Start of Galways Bus Method
+    public String sendGalwayBus() throws IOException{ //Start of Galway Bus Method
 
         URL obj = new URL(GET_GALWAY_BUS_URL);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -33,10 +33,13 @@ public class APIConnections {
             in.close();
 
             // print result
-            System.out.println(response.toString());
+            //System.out.println(response.toString());
+
+            return response.toString();
         } else {
             System.out.println("GET request did not work.");
         }
+        return null;
     } //End of Galway Bus Method
 
 }
