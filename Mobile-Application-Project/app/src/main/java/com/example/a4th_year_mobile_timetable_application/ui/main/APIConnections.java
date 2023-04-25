@@ -7,6 +7,7 @@ import java.net.URL;
 
 public class APIConnections {
 
+
     //Assigning variables
     private final String USER_AGENT = "Mozilla/5.0";
     private final String GET_GALWAY_BUS_URL = "https://galway-bus.apis.ie/api/groute/404/0";

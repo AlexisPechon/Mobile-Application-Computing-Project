@@ -20,8 +20,10 @@ public class PageViewModel extends ViewModel {
                 //return myConn.sendGalwayBus();
 
                 try{
-                    String response = myConn.sendGalwayBus();
-                    return response;
+                    return "https://cdn-icons-png.flaticon.com/512/194/194279.png";
+                    //String response = myConn.sendGalwayBus();
+                    //return response;
+
 
                 }catch(Exception e){
                     System.out.println("A problem has occurred: " + e);
