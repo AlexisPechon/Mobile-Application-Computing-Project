@@ -1,20 +1,66 @@
 package com.example.a4th_year_mobile_timetable_application;
 
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class TimetablesActivity {
-//    public class ViewHolder extends RecyclerView.ViewHolder{
-//
-//        TextView tvTitle;
-//        TextView tvBody;
-//        
-//        public ViewHolder(@NonNull View itemView){
-//            super(itemView);
-//            //tvTitle = itemView.findViewById;
-//        }
-//
-//    }
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class TimetablesActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
+    ProgressBar progressBar;
+    LinearLayoutManager layoutManager;
+    PostsAdapter adapter;
+    List<Posts> postsList = new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_timetables);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        progressBar = findViewById(R.id.progressBar);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new PostsAdapter(postsList);
+        recyclerView.setAdapter(adapter);
+
+
+        fetchPosts();
+
+    }
+
+    private void fetchPosts(){
+        progressBar.setVisibility(View.VISIBLE);
+        RetrofitClient.getRetrofitClient().getPosts().enqueue(new Callback<List<Posts>>() {
+            @Override
+            public void onResponse(Call<List<Posts>> call, Response<List<Posts>> response) {
+                if (response.isSuccessful() && response.body() != null){
+                    postsList.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Posts>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(TimetablesActivity.this,
+                        "Error: " + t.getMessage(),
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+    }
 }
